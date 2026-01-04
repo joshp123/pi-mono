@@ -200,7 +200,7 @@ const unsubscribe = pi.events.on("other:event", (data) => {
 });
 ```
 
-Events are session-scoped. Use namespaced channel names like `"toolname:event"` to avoid collisions.
+Event handlers persist across session switches (they're registered once at tool load time). Use namespaced channel names like `"toolname:event"` to avoid collisions.
 
 Handler errors are caught and logged. For async handlers, handle errors internally:
 

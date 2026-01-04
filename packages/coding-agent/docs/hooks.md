@@ -897,7 +897,7 @@ const unsubscribe = pi.events.on("my:channel", handler);
 unsubscribe();
 ```
 
-Events are session-scoped (cleared when session ends). Channel names are arbitrary strings - use namespaced names like `"toolname:event"` to avoid collisions.
+Event handlers persist across session switches (they're registered once at hook load time). Channel names are arbitrary strings; use namespaced names like `"toolname:event"` to avoid collisions.
 
 Handler errors are caught and logged. For async handlers, handle errors internally:
 
