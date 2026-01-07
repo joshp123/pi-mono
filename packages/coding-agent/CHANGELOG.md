@@ -6,6 +6,10 @@
 
 - Extension UI dialogs (`ctx.ui.select()`, `ctx.ui.confirm()`, `ctx.ui.input()`) now support a `timeout` option that auto-dismisses the dialog with a live countdown display. Simpler alternative to `AbortSignal` for timed dialogs.
 
+### Fixed
+
+- Auto-compaction no longer triggers incorrectly when switching models. Overflow errors from a previous model (e.g., opus) no longer trigger compaction after switching to a larger context model (e.g., codex). Also skips re-compaction for errors that predate an existing compaction. ([#535](https://github.com/badlogic/pi-mono/pull/535) by [@mitsuhiko](https://github.com/mitsuhiko))
+
 ## [0.37.8] - 2026-01-07
 
 ## [0.37.7] - 2026-01-07

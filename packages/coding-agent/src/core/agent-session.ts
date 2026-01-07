@@ -48,7 +48,13 @@ import type {
 import type { BashExecutionMessage, CustomMessage } from "./messages.js";
 import type { ModelRegistry } from "./model-registry.js";
 import { expandPromptTemplate, type PromptTemplate } from "./prompt-templates.js";
-import type { BranchSummaryEntry, CompactionEntry, NewSessionOptions, SessionManager } from "./session-manager.js";
+import type {
+	BranchSummaryEntry,
+	CompactionEntry,
+	NewSessionOptions,
+	SessionEntry,
+	SessionManager,
+} from "./session-manager.js";
 import type { SettingsManager, SkillsSettings } from "./settings-manager.js";
 
 /** Session-specific events that extend the core AgentEvent */
@@ -1274,7 +1280,15 @@ export class AgentSession {
 		// The error shouldn't trigger another compaction since we already compacted.
 		// Example: opus fails → switch to codex → compact → switch back to opus → opus error
 		// is still in context but shouldn't trigger compaction again.
-		const compactionEntry = this.sessionManager.getBranch().find((e) => e.type === "compaction");
+		// Search from end to find the most recent compaction (getBranch returns root-to-leaf order).
+		const branchEntries = this.sessionManager.getBranch();
+		let compactionEntry: SessionEntry | undefined;
+		for (let i = branchEntries.length - 1; i >= 0; i--) {
+			if (branchEntries[i].type === "compaction") {
+				compactionEntry = branchEntries[i];
+				break;
+			}
+		}
 		const errorIsFromBeforeCompaction =
 			compactionEntry && assistantMessage.timestamp < new Date(compactionEntry.timestamp).getTime();
 
