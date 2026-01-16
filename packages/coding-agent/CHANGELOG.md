@@ -6,10 +6,12 @@
 
 - Added bash-style argument slicing for prompt templates ([#770](https://github.com/badlogic/pi-mono/pull/770) by [@airtonix](https://github.com/airtonix))
 - Extension commands can provide argument auto-completions via `getArgumentCompletions` in `pi.registerCommand()` ([#775](https://github.com/badlogic/pi-mono/pull/775) by [@ribelo](https://github.com/ribelo))
+- Added `retry.streamMaxRetries` and `retry.streamIdleTimeoutMs` settings for Codex stream reconnect handling.
 
 ### Fixed
 
 - Fixed extension messages rendering twice on startup when `pi.sendMessage({ display: true })` is called during `session_start` ([#765](https://github.com/badlogic/pi-mono/pull/765) by [@dannote](https://github.com/dannote))
+- Auto-retry now treats Codex stream disconnects and rate limits as retryable, honoring retry-after delays when provided.
 
 ## [0.47.0] - 2026-01-16
 

@@ -754,7 +754,9 @@ Global `~/.pi/agent/settings.json` stores persistent preferences:
   "retry": {
     "enabled": true,
     "maxRetries": 3,
-    "baseDelayMs": 2000
+    "baseDelayMs": 2000,
+    "streamMaxRetries": 5,
+    "streamIdleTimeoutMs": 300000
   },
   "terminal": {
     "showImages": true
@@ -786,6 +788,8 @@ Global `~/.pi/agent/settings.json` stores persistent preferences:
 | `retry.enabled` | Auto-retry on transient errors | `true` |
 | `retry.maxRetries` | Maximum retry attempts | `3` |
 | `retry.baseDelayMs` | Base delay for exponential backoff | `2000` |
+| `retry.streamMaxRetries` | Maximum stream reconnect attempts | `5` |
+| `retry.streamIdleTimeoutMs` | Stream idle timeout before retry (ms) | `300000` |
 | `terminal.showImages` | Render images inline (supported terminals) | `true` |
 | `images.autoResize` | Auto-resize images to 2000x2000 max for better model compatibility | `true` |
 | `images.blockImages` | Prevent images from being sent to LLM providers | `false` |
