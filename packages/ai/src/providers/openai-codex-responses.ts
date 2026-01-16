@@ -135,7 +135,6 @@ export const streamOpenAICodexResponses: StreamFunction<"openai-codex-responses"
 				const info = await parseErrorResponse(response);
 				throw new CodexError(info.message, info.errorDetails);
 			}
-			}
 
 			if (!response.body) {
 				throw new CodexError("No response body", { retryable: true, kind: "transport" });
